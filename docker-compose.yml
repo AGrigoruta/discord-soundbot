@@ -3,6 +3,8 @@ services:
   discord-soundbot:
     build: .
     image: soundbot
+    ports:
+      - "0.0.0.0:8080:8080"
     volumes:
       - ./sounds:/app/sounds
       - ./config/config.json:/app/config/config.json

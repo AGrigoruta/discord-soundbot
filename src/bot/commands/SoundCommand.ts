@@ -16,17 +16,21 @@ export default class SoundCommand implements Command {
   }
 
   public run(message: Message) {
-    if (!message.member) return;
+    const messageCopy = Object.assign({}, message);
+    message.delete({ timeout: 1000 })
+      .then(data => console.log(data))
+      .catch(console.error);
+    if (!messageCopy.member) return;
 
-    const sound = message.content;
+    const sound = messageCopy.content;
     if (!existsSound(sound)) return;
 
-    const { channel: voiceChannel } = message.member.voice;
+    const { channel: voiceChannel } = messageCopy.member.voice;
     if (!voiceChannel) {
-      message.reply(localize.t('helpers.voiceChannelFinder.error'));
+      messageCopy.reply(localize.t('helpers.voiceChannelFinder.error'));
       return;
     }
 
-    this.queue.add(new QueueItem(sound, voiceChannel, message));
+    this.queue.add(new QueueItem(sound, voiceChannel, messageCopy));
   }
 }
