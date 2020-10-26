@@ -32,6 +32,7 @@ export default class SoundCommand implements Command {
     }
 
     const { channel: voiceChannel } = message.member.voice;
+    console.log(voiceChannel);
     if (!voiceChannel) {
       message.reply(localize.t('helpers.voiceChannelFinder.error'));
       message.delete({ timeout: 1000 })
