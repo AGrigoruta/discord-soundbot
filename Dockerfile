@@ -52,4 +52,5 @@ COPY --from=build --chown=node:node /app .
 USER node
 ENV NODE_ENV=production
 ENTRYPOINT ["/tini", "--"]
+EXPOSE 8080
 CMD ["yarn", "serve"]
